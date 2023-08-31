@@ -75,6 +75,22 @@ app.post("/game", (req, res) => {
     res.sendStatus(200)
 })
 
+app.delete("/game/:id", (req, res) => {
+    if(isNaN(req.params.id)) {
+        res.sendStatus(400)
+    }else{
+        let id = parseInt(req.params.id)
+        let index = DB.games.find(game => game.id == id)
+
+        if(index == -1) {
+            res.sendStatus(404)
+        }else{
+            DB.games.splice(index, id)
+            res.sendStatus(200)
+        }
+    }
+})
+
 app.listen(45678, () => {
     console.log('API RUNING')
 })
