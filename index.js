@@ -45,6 +45,22 @@ app.get("/games", (req, res) => {
     res.json(DB.games)
 })
 
+app.get("/game/:id", (req, res) => {
+    if(isNaN(req.params.id)) {
+        res.sendStatus(400)
+    }else{
+        let id = parseInt(req.params.id)
+        let game = DB.games.find(game => game.id == id)
+
+        if(game != undefined) {
+            res.statusCode = 200
+            res.send(game)
+        }else{
+            res.sendStatus(404)
+        }
+    }
+})
+
 app.listen(45678, () => {
     console.log('API RUNING')
 })
