@@ -61,6 +61,20 @@ app.get("/game/:id", (req, res) => {
     }
 })
 
+app.post("/game", (req, res) => {
+
+    let {title, price, year} = req.body
+
+    DB.games.push({
+        id: 25,
+        title,
+        price,
+        year
+    })
+
+    res.sendStatus(200)
+})
+
 app.listen(45678, () => {
     console.log('API RUNING')
 })
