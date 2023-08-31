@@ -75,6 +75,36 @@ app.post("/game", (req, res) => {
     res.sendStatus(200)
 })
 
+app.put("/game/:id", (req, res) => {
+    if(isNaN(req.params.id)) {
+        res.sendStatus(400)
+    }else{
+        let id = parseInt(req.params.id)
+        let game = DB.games.find(game => game.id == id)
+
+        if(game != undefined) {
+
+            let {title, price, year} = req.body
+
+            if(title != undefined) {
+                game.title = title
+            }
+
+            if(price != undefined) {
+                game.price = price
+            }
+
+            if(year != undefined) {
+                game.year = year
+            }
+
+            res.sendStatus(200)
+        }else{
+            res.sendStatus(404)
+        }
+    }
+})
+
 app.delete("/game/:id", (req, res) => {
     if(isNaN(req.params.id)) {
         res.sendStatus(400)
